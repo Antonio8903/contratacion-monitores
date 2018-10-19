@@ -14,11 +14,13 @@ import com.appproject.rest.repositories.CursoRepositorio;
 import com.appproject.rest.repositories.EmpleadoRepositorio;
 import com.appproject.rest.repositories.EstudianteRepositorio;
 import com.appproject.rest.repositories.InscripcionRepositorio;
+import com.appproject.rest.repositories.MatriculaRepositorio;
 import com.appproject.rest.repositories.NotaRepositorio;
 import com.appproject.serializers.Curso;
 import com.appproject.serializers.Empleado;
 import com.appproject.serializers.Estudiante;
 import com.appproject.serializers.Inscripcion;
+import com.appproject.serializers.Matricula;
 import com.appproject.serializers.Nota;
 
 
@@ -234,7 +236,34 @@ public class IndexController {
         } catch (Exception ex) {
 			;
 		}
+        
+        String _id = "";
+        long valor = 0;
 		
+        for (Matricula m: MatriculaRepositorio.getMatriculas().getBody()) {
+        	if (m.getId_estudiante() == idEstudiante && m.getAno_periodo().equals("2018-2")) {
+        		_id = m.get_id();
+        		valor = m.getValor();
+        		break;
+        	}
+        }
+        
+        if (tipoEstudiante.equals("pregrado")) {
+        	try {
+        		valor -= 500000;
+            	MatriculaRepositorio.setMatricula(Long.toString(valor), _id);
+            } catch (Exception ex) {
+    			;
+    		}
+        } else {
+        	try {
+        		valor -= 750000;
+        		MatriculaRepositorio.setMatricula(Long.toString(valor), _id);
+            } catch (Exception ex) {
+    			;
+    		}
+        }
+        
 		String mensaje = "El estudiante fue asignado a la monitoria, recibiras un mensaje por email.";
 		
 		atributos.addFlashAttribute("mensaje", mensaje);
