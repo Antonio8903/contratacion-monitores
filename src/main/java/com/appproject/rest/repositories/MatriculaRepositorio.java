@@ -1,5 +1,8 @@
 package com.appproject.rest.repositories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,11 +34,11 @@ public class MatriculaRepositorio {
         cabecera.set("Content-Type", "application/json");
         cabecera.set("x-apikey", apiKey);
         
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-
-       
-        body.add("valor", valor);
-
+//        MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+//        body.add("valor", valor);
+        
+        Map<String, String> body = new HashMap<String, String>();
+        body.put("valor", valor);
         HttpEntity<?> entidad = new HttpEntity<Object>(body, cabecera);
        
         RestTemplate plantilla = new RestTemplate();

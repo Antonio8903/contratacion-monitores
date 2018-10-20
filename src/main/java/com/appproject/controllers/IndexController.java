@@ -22,6 +22,7 @@ import com.appproject.serializers.Estudiante;
 import com.appproject.serializers.Inscripcion;
 import com.appproject.serializers.Matricula;
 import com.appproject.serializers.Nota;
+import com.appproject.utilidades.Email;
 
 
 @Controller
@@ -39,7 +40,7 @@ public class IndexController {
 	public String index(Model model) {
         model.addAttribute("estudiantes", EstudianteRepositorio.getEstudiantes().getBody());
         model.addAttribute("cursos", CursoRepositorio.getCursos().getBody());
-        
+        Email.enviarEmail();
 		return "index";
 	}
 	
@@ -244,6 +245,7 @@ public class IndexController {
         	if (m.getId_estudiante() == idEstudiante && m.getAno_periodo().equals("2018-2")) {
         		_id = m.get_id();
         		valor = m.getValor();
+        		
         		break;
         	}
         }
