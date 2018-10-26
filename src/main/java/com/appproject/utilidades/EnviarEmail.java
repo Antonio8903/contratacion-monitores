@@ -11,7 +11,7 @@ public class EnviarEmail {
 	    Content content = new Content("text/plain", "El estudiante " + estudiante + " se le asigno a la monitoria del curso " + curso);
 	    Mail mail = new Mail(from, subject, to, content);
 
-	    SendGrid sg = new SendGrid("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");
+	    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 	    Request request = new Request();
 	    try {
 	      request.setMethod(Method.POST);
